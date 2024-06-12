@@ -1,11 +1,14 @@
+import { useState } from "react";
 import CoreConcepts from "./components/CoreConcepts/CoreConcepts";
 import Header from "./components/Header/Header";
 import TabButton from "./components/TabButton/TabButton";
-import { CORE_CONCEPTS } from "./data";
+import { CORE_CONCEPTS, EXAMPLES } from "./data";
 
 function App() {
+  const [tabContent, setTabContent] = useState("components");
+
   function handleClick(selectedButton) {
-    console.log(selectedButton);
+    setTabContent(selectedButton);
   }
 
   return (
@@ -31,7 +34,13 @@ function App() {
             <TabButton onClick={() => handleClick("props")}>Props</TabButton>
             <TabButton onClick={() => handleClick("state")}>State</TabButton>
           </menu>
-          Dynamic Content
+          <div id="tab-content">
+            <h3>{EXAMPLES[tabContent]?.title}</h3>
+            <p>{EXAMPLES[tabContent]?.description}</p>
+            <pre>
+              <code>{EXAMPLES[tabContent]?.code}</code>
+            </pre>
+          </div>
         </section>
       </main>
     </div>
