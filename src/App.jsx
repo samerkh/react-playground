@@ -11,6 +11,8 @@ function App() {
     setSelectedTab(tab);
   }
 
+  const tabs = ["components", "jsx", "props", "state"];
+
   let tabContent;
   if (selectedTab) {
     tabContent = (
@@ -33,39 +35,23 @@ function App() {
         <section id="core-concepts">
           <h2>Core Concepts</h2>
           <ul>
-            <CoreConcepts {...CORE_CONCEPTS[0]} />
-            <CoreConcepts {...CORE_CONCEPTS[1]} />
-            <CoreConcepts {...CORE_CONCEPTS[2]} />
-            <CoreConcepts {...CORE_CONCEPTS[3]} />
+            {CORE_CONCEPTS.map((concept) => (
+              <CoreConcepts {...concept} key={concept.title} />
+            ))}
           </ul>
         </section>
         <section id="examples">
           <h2>Examples</h2>
           <menu>
-            <TabButton
-              isSelected={selectedTab === "components"}
-              onClick={() => handleClick("components")}
-            >
-              Components
-            </TabButton>
-            <TabButton
-              isSelected={selectedTab === "jsx"}
-              onClick={() => handleClick("jsx")}
-            >
-              JSX
-            </TabButton>
-            <TabButton
-              isSelected={selectedTab === "props"}
-              onClick={() => handleClick("props")}
-            >
-              Props
-            </TabButton>
-            <TabButton
-              isSelected={selectedTab === "state"}
-              onClick={() => handleClick("state")}
-            >
-              State
-            </TabButton>
+            {tabs.map((tab) => (
+              <TabButton
+                key={tab}
+                isSelected={selectedTab === tab}
+                onClick={() => handleClick(tab)}
+              >
+                {tab}
+              </TabButton>
+            ))}
           </menu>
           {tabContent}
         </section>
